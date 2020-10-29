@@ -1,120 +1,24 @@
 /**
- * Static methods and properties are accesible via Class
- * and not via instance.
- *
- * To make a property or method static simply
- * add "static" keyword to the beginning
- *
- *
+ * The interface allows us to define the structure of an object
+ * and we can use it as a type check that objects must have
+ * the interface structure
  */
+interface Person{
+  name: string;
+  age: number;
 
-abstract class Department {
-  // protected readonly id: string;
-  // private name: string;
-  protected employees: string[] = [];
-  static fiscalYear = 2020;
+  greet(phrase: string): void;
+}
 
-  constructor(protected readonly id: string, public name: string) {
-    // this.id = id;
-    // this.name = n;
-  }
+let user1: Person;
 
-  /**
-   * This is the signature for abstract methods within abstract classes
-   * @param this: Department this must refer to a Department object
-   */
-  abstract describe(this: Department):void;
+user1={
+  name: "Felix",
+  age: 29,
 
-  addEmployee(employee: string) {
-    this.employees.push(employee);
-  }
-
-  printEmployeeInformation() {
-    console.log(this.employees.length);
-    console.log(this.employees);
+  greet(phrase: string){
+    console.log(`${phrase} ${this.name}`);
   }
 }
 
-class ITDepartment extends Department {
-  admins: string[];
-  constructor(id: string, admins: string[]) {
-    super(id, "IT");
-    this.admins = admins;
-  }
-
-  describe(){
-    console.log(`Department (${this.id}): ${this.name}
-    Fiscal year: ${Department.fiscalYear}`);
-  }
-}
-
-class AccountingDepartment extends Department {
-  private lastReport: string;
-  private static instance: AccountingDepartment; 
-  /**
-   * Getter
-   */
-  get mostRecentReport() {
-    if (this.lastReport) {
-      return this.lastReport;
-    }
-    throw new Error("No report found.");
-  }
-
-  /**
-   * Setter
-   */
-  set mostRecentReport(value: string) {
-    if (!value) {
-      throw new Error("Please pass in a valid value!");
-    }
-    this.addReport(value);
-  }
-
-  private constructor(id: string, private reports: string[]) {
-    super(id, "Accounting");
-    this.lastReport = reports[0];
-  }
-
-  static getInstance (){
-    if(this.instance){
-      return this.instance
-    }
-    this.instance = new AccountingDepartment("d2", []);
-    return this.instance
-  }
-
-  addEmployee(name: string) {
-    if (name === "Max") {
-      return;
-    }
-    this.employees.push(name);
-  }
-
-  addReport(text: string) {
-    this.reports.push(text);
-    this.lastReport = text;
-  }
-
-  printReports() {
-    console.log(this.reports);
-  }
-
-  describe(){
-    console.log(`Department (${this.id}): ${this.name}
-    Fiscal year: ${Department.fiscalYear}`);
-  }
-}
-
-const it = new ITDepartment("d1", ["Max"]);
-
-
-it.describe();
-it.name = "NEW NAME";
-console.log(it);
-
-const accounting = AccountingDepartment.getInstance();
-const accounting2 = AccountingDepartment.getInstance();
-accounting.describe();
-
-console.log(accounting === accounting2);
+user1.greet("Hi there - I am");
