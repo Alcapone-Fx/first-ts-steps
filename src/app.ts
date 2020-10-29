@@ -3,8 +3,10 @@
  * and we can use it as a type check that objects must have
  * the interface structure
  */
-interface Greetable{
-  name: string;
+interface Named{
+  readonly name: string;
+}
+interface Greetable extends Named{
   greet(phrase: string): void;
 }
 
