@@ -3,22 +3,24 @@
  * and we can use it as a type check that objects must have
  * the interface structure
  */
-interface Person{
+interface Greetable{
   name: string;
-  age: number;
-
   greet(phrase: string): void;
 }
 
-let user1: Person;
-
-user1={
-  name: "Felix",
-  age: 29,
-
+class Person implements Greetable{
+  age: number;
+  
+  constructor(public name: string){
+    this.age = 30;
+  }
+  
   greet(phrase: string){
     console.log(`${phrase} ${this.name}`);
   }
 }
 
+let user1 = new Person("Felix");
+
 user1.greet("Hi there - I am");
+ 
