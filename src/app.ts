@@ -8,21 +8,22 @@
  *
  */
 
-class Department {
+abstract class Department {
   // private readonly id: string;
   // private name: string;
   protected employees: string[] = [];
   static fiscalYear = 2020;
 
-  constructor(private readonly id: string, public name: string) {
+  constructor(protected readonly id: string, public name: string) {
     // this.id = id;
     // this.name = n;
   }
 
-  describe(this: Department) {
-    console.log(`Department (${this.id}): ${this.name}
-    Fiscal year: ${Department.fiscalYear}`);
-  }
+  /**
+   * This is the signature for abstract methods within abstract classes
+   * @param this: Department this must refer to a Department object
+   */
+  abstract describe(this: Department):void;
 
   addEmployee(employee: string) {
     // validation etc
@@ -41,6 +42,11 @@ class ITDepartment extends Department {
   constructor(id: string, admins: string[]) {
     super(id, "IT");
     this.admins = admins;
+  }
+
+  describe(){
+    console.log(`Department (${this.id}): ${this.name}
+    Fiscal year: ${Department.fiscalYear}`);
   }
 }
 
@@ -86,6 +92,11 @@ class AccountingDepartment extends Department {
   printReports() {
     console.log(this.reports);
   }
+
+  describe(){
+    console.log(`Department (${this.id}): ${this.name}
+    Fiscal year: ${Department.fiscalYear}`);
+  }
 }
 
 const it = new ITDepartment("d1", ["Max"]);
@@ -105,7 +116,6 @@ const accounting = new AccountingDepartment("d2", []);
 
 accounting.mostRecentReport = "Year End Report";
 accounting.addReport("Something went wrong...");
-console.log(accounting.mostRecentReport);
 
 accounting.addEmployee("Max");
 accounting.addEmployee("Manu");
