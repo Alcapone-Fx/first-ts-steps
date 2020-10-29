@@ -6,6 +6,11 @@
 interface Named{
   readonly name: string;
 }
+
+/**
+ * Different to classes, interfaces can extend more than one 
+ * interface
+ */
 interface Greetable extends Named{
   greet(phrase: string): void;
 }
