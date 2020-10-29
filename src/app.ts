@@ -9,7 +9,7 @@
  */
 
 abstract class Department {
-  // private readonly id: string;
+  // protected readonly id: string;
   // private name: string;
   protected employees: string[] = [];
   static fiscalYear = 2020;
@@ -26,8 +26,6 @@ abstract class Department {
   abstract describe(this: Department):void;
 
   addEmployee(employee: string) {
-    // validation etc
-    // this.id = 'd2';
     this.employees.push(employee);
   }
 
@@ -101,28 +99,10 @@ class AccountingDepartment extends Department {
 
 const it = new ITDepartment("d1", ["Max"]);
 
-it.addEmployee("Max");
-it.addEmployee("Manu");
-
-// it.employees[2] = 'Anna';
 
 it.describe();
 it.name = "NEW NAME";
-it.printEmployeeInformation();
-
 console.log(it);
 
 const accounting = new AccountingDepartment("d2", []);
-
-accounting.mostRecentReport = "Year End Report";
-accounting.addReport("Something went wrong...");
-
-accounting.addEmployee("Max");
-accounting.addEmployee("Manu");
-
-accounting.printReports();
-accounting.printEmployeeInformation();
-
-// const accountingCopy = { name: 'DUMMY', describe: accounting.describe };
-
-// accountingCopy.describe();
+accounting.describe();
