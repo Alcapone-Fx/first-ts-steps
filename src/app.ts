@@ -135,3 +135,21 @@ function moveAnimal(animal: Animal) {
 
 moveAnimal({ type: "horse", runningSpeed: 10 });
 moveAnimal({ type: "bird", flyingSpeed: 15 });
+
+/*
+ * Type Casting
+ */
+
+// keyword as to casting or angle brackets
+//const userInputElement = <HTMLInputElement>document.getElementById('user-input')!;
+// TS undestands that ! never returns null
+const userInputElement = document.getElementById(
+  "user-input"
+)! as HTMLInputElement;
+
+userInputElement.value = "Hi there!!!";
+
+// Alternative to !
+// if (userInputElement) {
+//   (userInputElement as HTMLInputElement).value = "Hi there!";
+// }
