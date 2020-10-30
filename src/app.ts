@@ -15,8 +15,11 @@ let add: addFunctionType;
 
 add = (a, b) => a + b;
 
+/**
+ * Optional name property
+ */
 interface Named {
-  readonly name: string;
+  readonly name?: string;
 }
 
 /**
@@ -30,15 +33,22 @@ interface Greetable extends Named {
 class Person implements Greetable {
   age: number;
 
-  constructor(public name: string) {
+  /**
+   * Also a parameter could be optional (remember default properties)
+   * @param name 
+   */
+  constructor(public name?: string) {
     this.age = 30;
   }
 
   greet(phrase: string) {
-    console.log(`${phrase} ${this.name}`);
+    let output = this.name ? `${phrase} ${this.name}` : `${phrase} Desconocido`;
+    console.log(output);
   }
 }
 
 let user1 = new Person("Felix");
-
 user1.greet("Hi there - I am");
+
+let user2 = new Person();
+user2.greet("Hi there - I am");
