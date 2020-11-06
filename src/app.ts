@@ -153,3 +153,22 @@ userInputElement.value = "Hi there!!!";
 // if (userInputElement) {
 //   (userInputElement as HTMLInputElement).value = "Hi there!";
 // }
+
+/*
+ * Index Properties 
+ */
+
+interface IErrorContainer {
+  /*
+   * We don't know how many properties would have and we don't know
+   * the properties name, so we tell to TS that properties must be 
+   * string type 
+   * 
+   */
+  [prop: string]: string
+}
+
+const errorBag: IErrorContainer ={
+  email: 'Not valid email',
+  1: 'hey'
+}
