@@ -88,6 +88,15 @@ type Numeric = number | boolean;
 //: number is the result of the Intersection of Combinable & Numeric
 type Universal = Combinable & Numeric;
 
+
+/*
+ * Function Overloads 
+ * The best use is for union types because TS don't tell us what 
+ * is the right return type
+ * To give to TS a better information we must write a function signature
+ */
+function add(a: number, b: number):number;
+function add(a: string, b: string):string;
 function add(a: Combinable, b: Combinable) {
   /*
    * Type Guards help us with union types
@@ -100,6 +109,8 @@ function add(a: Combinable, b: Combinable) {
     return a + b;
   }
 }
+
+const result = add("Hello ", "World");
 
 /*
  * Discriminated Unions it's a pattern that help us to know
@@ -172,3 +183,4 @@ const errorBag: IErrorContainer ={
   email: 'Not valid email',
   1: 'hey'
 }
+
