@@ -21,8 +21,8 @@ type Employee = {
 type ElevatedEmployee = Admin & Employee;
 
 const e1: ElevatedEmployee = {
-  name: "Felix",
-  privileges: ["create-server"],
+  name: 'Felix',
+  privileges: ['create-server'],
   startDate: new Date(),
 };
 
@@ -34,29 +34,29 @@ function printEmployeeInformation(employee: UnknownEmployee) {
   /*
    * Type guard
    */
-  if ("privileges" in employee) {
+  if ('privileges' in employee) {
     console.log(`Privileges: ${employee.privileges}`);
   }
-  if ("startDate" in employee) {
+  if ('startDate' in employee) {
     console.log(`Start Date: ${employee.startDate}`);
   }
 }
 
 printEmployeeInformation(e1);
-printEmployeeInformation({ name: "Kratos", startDate: new Date() });
+printEmployeeInformation({ name: 'Kratos', startDate: new Date() });
 
 /*
  * Our type guard on classes is the instace of
  */
 class Car {
   drive() {
-    console.log("Driving...");
+    console.log('Driving...');
   }
 }
 
 class Truck {
   drive() {
-    console.log("Driving...");
+    console.log('Driving...');
   }
 
   loadCargo(amount: number) {
@@ -88,29 +88,28 @@ type Numeric = number | boolean;
 //: number is the result of the Intersection of Combinable & Numeric
 type Universal = Combinable & Numeric;
 
-
 /*
- * Function Overloads 
- * The best use is for union types because TS don't tell us what 
+ * Function Overloads
+ * The best use is for union types because TS don't tell us what
  * is the right return type
  * To give to TS a better information we must write a function signature
  */
-function add(a: number, b: number):number;
-function add(a: string, b: string):string;
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
 function add(a: Combinable, b: Combinable) {
   /*
    * Type Guards help us with union types
    * Help us to use the flexibility of union types and
    * ensure that our code runs correctly at runtime
    */
-  if (typeof a === "string" || typeof b === "string") {
+  if (typeof a === 'string' || typeof b === 'string') {
     return a.toString() + b.toString();
   } else {
     return a + b;
   }
 }
 
-const result = add("Hello ", "World");
+const result = add('Hello ', 'World');
 
 /*
  * Discriminated Unions it's a pattern that help us to know
@@ -118,12 +117,12 @@ const result = add("Hello ", "World");
  * The interfaces has a the same property but different type
  */
 interface Bird {
-  type: "bird";
+  type: 'bird';
   flyingSpeed: number;
 }
 
 interface Horse {
-  type: "horse";
+  type: 'horse';
   runningSpeed: number;
 }
 
@@ -133,10 +132,10 @@ function moveAnimal(animal: Animal) {
   let speed;
 
   switch (animal.type) {
-    case "bird":
+    case 'bird':
       speed = animal.flyingSpeed;
       break;
-    case "horse":
+    case 'horse':
       speed = animal.runningSpeed;
       break;
   }
@@ -144,8 +143,8 @@ function moveAnimal(animal: Animal) {
   console.log(`Moving at speed: ${speed}`);
 }
 
-moveAnimal({ type: "horse", runningSpeed: 10 });
-moveAnimal({ type: "bird", flyingSpeed: 15 });
+moveAnimal({ type: 'horse', runningSpeed: 10 });
+moveAnimal({ type: 'bird', flyingSpeed: 15 });
 
 /*
  * Type Casting
@@ -155,10 +154,10 @@ moveAnimal({ type: "bird", flyingSpeed: 15 });
 //const userInputElement = <HTMLInputElement>document.getElementById('user-input')!;
 // TS undestands that ! never returns null
 const userInputElement = document.getElementById(
-  "user-input"
+  'user-input'
 )! as HTMLInputElement;
 
-userInputElement.value = "Hi there!!!";
+userInputElement.value = 'Hi there!!!';
 
 // Alternative to !
 // if (userInputElement) {
@@ -166,21 +165,47 @@ userInputElement.value = "Hi there!!!";
 // }
 
 /*
- * Index Properties 
+ * Index Properties
  */
 
 interface IErrorContainer {
   /*
    * We don't know how many properties would have and we don't know
-   * the properties name, so we tell to TS that properties must be 
-   * string type 
-   * 
+   * the properties name, so we tell to TS that properties must be
+   * string type
+   *
    */
-  [prop: string]: string
+  [prop: string]: string;
 }
 
-const errorBag: IErrorContainer ={
+const errorBag: IErrorContainer = {
   email: 'Not valid email',
-  1: 'hey'
-}
+  1: 'hey',
+};
 
+/*
+ * Optional Chaining
+ * Sometimes we don't know if certain property comes with fetch response
+ *
+ */
+
+//Exmaple of fetched object
+const fetchedUserData = {
+  id: 'u1',
+  name: 'Felix',
+  /* If we don't get job attribute TS complains */
+  job: {
+    title: 'CEO',
+    description: 'My own great company',
+  },
+};
+
+//TS complains
+//console.log(fetchedUserData.job.title);
+
+// JS regular approach but TS complains
+//console.log(fetchedUserData.job && fetchedUserData.job.title);
+
+//TS has a better approach: ?
+//we tell to TS that if job exist then safely access it and access to title
+console.log(fetchedUserData?.job?.title);
