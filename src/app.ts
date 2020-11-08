@@ -209,3 +209,16 @@ const fetchedUserData = {
 //TS has a better approach: ?
 //we tell to TS that if job exist then safely access it and access to title
 console.log(fetchedUserData?.job?.title);
+
+ /**
+  *  Nullish Coalescing
+  *  Sometimes we could try to acces to a nulllish value so we can use Nullish Coalescing
+  */
+
+const userInput = undefined;
+
+//The ?? operator is used so that TS knows to return a default value if the assign is null or undefined
+const userData = userInput ?? 'DEFAULT';
+
+console.log(userData);
+
