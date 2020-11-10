@@ -25,11 +25,13 @@
 /**
  * In this case we are telling to TS the function will recieve two types,
  * maybe different types and TS understand that
- * @param objectA 
- * @param objectB 
+ * 
+ * Type Constraints
+ * With type constriants we are telling to TS that objectA and B could be whatever,
+ * but mut be an object
  */
 
-function merge<T, U>(objectA: T, objectB: U) {
+function merge<T extends object, U extends object>(objectA: T, objectB: U) {
   return Object.assign(objectA, objectB);
 }
 
