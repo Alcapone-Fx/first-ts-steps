@@ -59,3 +59,17 @@ function countAndPrint<T extends ILengthy>(element: T) {
 
   return [element, descriptionText];
 }
+
+/*
+ * The "keyof" constraint
+ * It is for telling TS that a parameter must be a key of certain object
+ */
+
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return `Value ${obj[key]}`;
+}
+
+console.log(extractAndConvert({name: 'Felix'}, 'name'));
