@@ -72,4 +72,44 @@ function extractAndConvert<T extends object, U extends keyof T>(
   return `Value ${obj[key]}`;
 }
 
-console.log(extractAndConvert({name: 'Felix'}, 'name'));
+console.log(extractAndConvert({ name: 'Felix' }, 'name'));
+
+/*
+ *  Generic Classes
+ * We can tell to TS that a class could manipulate a generic type
+ *
+ * We could tell to TS that our class is specialized and will be working with primitive types
+ */
+
+class DataStorage<T extends string | number | boolean> {
+  private data: T[] = [];
+
+  addItem(item: T) {
+    this.data.push(item);
+  }
+
+  removeItem(item: T) {
+    if (this.data.indexOf(item) !== -1)
+      this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems() {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem('Felix');
+textStorage.addItem('Rene');
+textStorage.removeItem('Rine');
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+numberStorage.addItem(2);
+console.log(numberStorage.getItems());
+
+// const objectStorage = new DataStorage<object>();
+// objectStorage.addItem({name: 'Rene'});
+// objectStorage.addItem({name: 'Felix'});
+// objectStorage.removeItem({name: 'Rene'});
+// console.log(objectStorage.getItems());
