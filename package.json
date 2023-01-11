@@ -6,11 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "lite-server",
-    "tsc": "tsc"
+    "tsc": "tsc -w"
   },
   "author": "Fx Navas",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^18.11.18",
     "lite-server": "^2.5.4",
     "typescript": "^4.9.4"
   }
