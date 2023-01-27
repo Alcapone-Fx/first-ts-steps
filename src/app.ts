@@ -2,14 +2,18 @@
  * Decorators are used to write code that will be easier to use by other developers
  * Decorators are all about classes
  * Decorator is a function applied to something: a class
- * Decorators execute when the calss is defined not when instantiated
+ * Decorators execute when the class is defined not when instantiated
  */
-const Logger = (constructor: Function) => {
-  console.log('Logging...');
+/**
+ * We can define a decorator factory, which returns a decorator function,
+ * but allow us to configure it when we assign it as a decorator to something
+ */
+const Logger = (log: string) => (constructor: Function) => {
+  console.log(log);
   console.log(constructor);
 };
 
-@Logger
+@Logger('LOGGING - PERSON')
 class Person {
   name = 'Felix';
 
