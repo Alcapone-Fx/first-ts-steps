@@ -60,6 +60,10 @@ function countAndPrint<T extends ILengthy>(element: T) {
   return [element, descriptionText];
 }
 
+countAndPrint('s');
+countAndPrint([1, 2, 3]);
+// countAndPrint(1); // Argument of type 'number' is not assignable to parameter of type 'ILengthy'
+
 /*
  * The "keyof" constraint
  * It is for telling TS that a parameter must be a key of certain object
@@ -113,3 +117,38 @@ console.log(numberStorage.getItems());
 // objectStorage.addItem({name: 'Felix'});
 // objectStorage.removeItem({name: 'Rene'});
 // console.log(objectStorage.getItems());
+
+/**
+ * Generic Utility Types
+ */
+
+/**
+ * Partial<Type>
+ * Constructs a type with all properties of Type set to optional.
+ * This utility will return a type that represents all subsets of a given type.
+ */
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+const createCourseGoal = (title: string, description: string, completeUntil: Date): CourseGoal => {
+  let courseGoal: Partial<CourseGoal> = {}; // all properties are optional
+  // .. some validation
+  courseGoal.title = title;
+  // .. some other validation
+  courseGoal.description = description;
+  // .. some other validation
+  courseGoal.completeUntil = completeUntil;
+
+  return courseGoal as CourseGoal;
+};
+
+/**
+ * Readonly<Type>
+ * Constructs a type with all properties of Type set to readonly,
+ * meaning the properties of the constructed type cannot be reassigned.
+ */
+const names: Readonly<string []> = ['Felix', 'Navas'];
+// names.push('Jose'); // extra checks and strictness
