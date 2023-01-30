@@ -13,7 +13,17 @@ const Logger = (log: string) => (constructor: Function) => {
   console.log(constructor);
 };
 
+const WithTemplate = (template: string, hookId: string) => (constructor: any) => {
+  const hookElement = document.getElementById(hookId);
+  const object = new constructor();
+  if(hookElement) {
+    hookElement.innerHTML = template;
+    hookElement.querySelector('h1')!.textContent = object.name;
+  }
+}
+
 @Logger('LOGGING - PERSON')
+@WithTemplate('<h1>My Person Object</h1>', 'app')
 class Person {
   name = 'Felix';
 
