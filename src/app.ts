@@ -33,3 +33,35 @@ class Person {
 }
 
 const person = new Person();
+
+/**
+ * Decorator for property
+ * this type of decorator receives 2 args: target property and property name
+ */
+const Log = (target: any, propName: string | Symbol) => {
+  console.log('Property decorator');
+  console.log(target, propName);
+};
+
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+
+  set price (value: number) {
+    if(value > 0) {
+      this.price = value;
+    } else {
+      throw new Error('Not valid price');
+    }
+  }
+
+  constructor(title: string, price: number) {
+    this.title = title;
+    this._price = price;
+  }
+
+  getPriceWithTax (tax: number) {
+    return this._price * (1 + tax);
+  }
+}
