@@ -16,13 +16,22 @@ const Logger = (log: string) => (constructor: Function) => {
   console.log(constructor);
 };
 
-const WithTemplate = (template: string, hookId: string) => (constructor: any) => {
-  const hookElement = document.getElementById(hookId);
-  const object = new constructor();
-  if(hookElement) {
-    hookElement.innerHTML = template;
-    hookElement.querySelector('h1')!.textContent = object.name;
-  }
+/**
+ * Decoators are capable of returning a value
+ * e.g: we can return a new constructor function and replace it
+ */
+const WithTemplate = (template: string, hookId: string) => <T extends { new(...args: any[]): { name: string } }>(originalConstructor: T) => {
+  console.log('Template factory');
+  return class extends originalConstructor {
+    constructor(..._: any[]) {
+      super();
+      const hookElement = document.getElementById(hookId);
+      if(hookElement) {
+        hookElement.innerHTML = template;
+        hookElement.querySelector('h1')!.textContent = this.name;
+      }
+    }
+  };
 }
 
 @Logger('LOGGING - PERSON')
@@ -35,7 +44,7 @@ class Person {
   }
 }
 
-const person = new Person();
+// const person = new Person();
 
 /**
  * Decorator for property
