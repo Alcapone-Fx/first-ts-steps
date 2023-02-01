@@ -47,6 +47,11 @@ class Person {
 // const person = new Person();
 
 /**
+ * We can not return a new value from property, method or parameter decorator
+ * We can return a new descriptor
+ */
+
+/**
  * Decorator for property
  * this type of decorator receives 2 args: target property and property name
  */
